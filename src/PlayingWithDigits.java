@@ -16,23 +16,32 @@ import java.util.Arrays;
 public class PlayingWithDigits {
 
     public static long digPow(int n, int p) {
+
+        // Refactor based on community best practices solutions
         String intString = String.valueOf(n);
-        int length = intString.length();
-        int[] digits = new int[length];
-        for (int i = 0; i < length; i++) {
-            digits[i] = Character.getNumericValue(intString.charAt(i));
-        }
+        long sum = 0;
+        for (int i = 0; i < intString.length(); ++i, ++p)
+            sum += Math.pow(Character.getNumericValue(intString.charAt(i)), p);
+        return (sum % n == 0) ? sum / n : -1;
 
-        long product = 0;
-        for (int j = 0; j < length; j++) {
-            product += Math.pow(digits[j], p + j);
-        }
-
-        if (product % n == 0) {
-            return product / n;
-        } else {
-            return -1;
-        }
+        // Original Solution
+//        String intString = String.valueOf(n);
+//        int length = intString.length();
+//        int[] digits = new int[length];
+//        for (int i = 0; i < length; i++) {
+//            digits[i] = Character.getNumericValue(intString.charAt(i));
+//        }
+//
+//        long product = 0;
+//        for (int j = 0; j < length; j++) {
+//            product += Math.pow(digits[j], p + j);
+//        }
+//
+//        if (product % n == 0) {
+//            return product / n;
+//        } else {
+//            return -1;
+//        }
 
     }
 
