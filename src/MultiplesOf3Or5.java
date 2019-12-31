@@ -4,19 +4,13 @@
 //        Note: If the number is a multiple of both 3 and 5, only count it once.
 //        Courtesy of ProjectEuler.net
 
-import java.util.ArrayList;
-
 public class MultiplesOf3Or5 {
     public static int solution(int number) {
-        ArrayList<Integer> multiples = new ArrayList<>();
+        int sum = 0;
         for (int i = 0; i < number; i++) {
             if (i % 3 == 0 || i % 5 == 0) {
-                multiples.add(i);
+                sum += i;
             }
-        }
-        int sum = 0;
-        for (int multiple : multiples) {
-            sum += multiple;
         }
         return sum;
     }
