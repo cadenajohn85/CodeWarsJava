@@ -6,34 +6,31 @@
 //        Valid operations are +, -, *, /.
 //        You may assume that there won't be exceptional situations (like stack underflow or division by zero).
 
+import java.util.Stack;
+
 public class ReversePolish {
-    public static double evaluate(String expr) {
+
+    public double evaluate(String expr) {
         if (expr.equals("")) {
             return 0;
         }
-        if (!expr.contains("+") && !expr.contains(" -") && !expr.contains("*") && !expr.contains("/")) {
-            return Double.parseDouble(expr);
-        }
-        while (expr.contains(" ")) {
-            expr = expr.replace(" ", "");
-        }
-        char[] array = expr.toCharArray();
-        switch (array[array.length - 1]) {
-            case '+':
-                return (double) Character.digit(array[0], 10) + (double) Character.digit(array[1], 10);
-            case '-':
-                return (double) Character.digit(array[0], 10) - (double) Character.digit(array[1], 10);
-            case '*':
-                return (double) Character.digit(array[0], 10) * (double) Character.digit(array[1], 10);
-            case '/':
-                return (double) Character.digit(array[0], 10) / (double) Character.digit(array[1], 10);
-            default:
-                return 0;
-        }
-    }
 
-    public static void main(String[] args) {
-        System.out.println(evaluate("5 1 +"));
+        Stack<Double> stack = new Stack<Double>();
+        String[] atoms = expr.split(" ");
+
+        for (String atom: atoms) {
+            Double a, b;
+            switch (atom) {
+                case "+": stack.push(stack.pop() + stack.pop()); break;
+                case "-": b = stack.pop(); a = stack.pop(); stack.push(a - b); break;
+                case "*": stack.push(stack.pop() * stack.pop()); break;
+                case "/": b = stack.pop(); a = stack.pop(); stack.push(a / b); break;
+                default:
+                    stack.push(Double.parseDouble(atom));
+            }
+        }
+
+        return stack.pop();
     }
 }
 
